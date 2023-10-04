@@ -1,0 +1,48 @@
+<template>
+  <p class="clearfix mb-0">
+    <span class="float-md-left d-block d-md-inline-block mt-25">
+      {{ $t("Copyright") }} © {{ new Date().getFullYear() }}
+      <b-link class="ml-25" href="https://www.linkedin.com/in/mhmed-elsaeed-137766182/" target="_blank">Antika</b-link>
+      <span class="d-none d-sm-inline-block"
+        >, {{ $t("All rights Reserved") }}</span
+      >
+    </span>
+
+    <!-- <span class="float-md-right d-none d-md-block">Hand-crafted &amp; Made with
+      <feather-icon
+        icon="HeartIcon"
+        size="21"
+        class="text-danger stroke-current"
+      />
+    </span> -->
+  </p>
+</template>
+
+<script>
+import { BLink } from "bootstrap-vue";
+import { getMessaging,onMessage} from "firebase/messaging";
+
+
+export default {
+  components: {
+    BLink,
+  },
+  mounted(){
+    this.firebaseNotification()
+  },
+  methods:{
+    firebaseNotification(){
+        const messaging = getMessaging();
+        onMessage(messaging, (payload) => {          
+        const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+            body: payload.notification.body,
+            icon: '/logo_one.png'
+            };
+            this.$toast.success(payload.notification.body);
+        
+        });
+    }
+  }
+};
+</script>

@@ -1,0 +1,3005 @@
+
+
+
+
+      <!-- //// العقود   -->
+    
+      <!-- //// الخامة   -->
+
+      <b-tab>
+        <template #title>
+          <span> الخامات و المعدات </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <h3 class="text-center pb-2"> الخامات و المعدات</h3>
+                      </b-col>
+                      <p class="pr-1">
+                        الخامة
+                        <feather-icon
+                          @click="clonePartThreeFormMaterial"
+                          size="16"
+                          icon="PlusIcon"
+                          class="m-0 plus_icon"
+                        />
+                      </p>
+
+                      <b-col md="12">
+                        <b-row
+                          v-for="(item, index) in this.projectData.material_data"
+                          :key="index"
+                        >
+                          <b-col md="4">
+                            <b-form-group class="text-right" label="اسم الخامة">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="اسم الخامة"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.material_data[index]
+                                      .material_name
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="اسم الخامة"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="4">
+                            <b-form-group class="text-right" label="الوحدة">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الوحدة"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.material_data[index].unit"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="الوحدة"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <br />
+                          <br />
+                          <br />
+                          <h1 class="text-white">hhhh</h1>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+
+                      <p class="pr-1">
+                        المعدات
+                        <feather-icon
+                          @click="cloneEquipments"
+                          size="16"
+                          icon="PlusIcon"
+                          class="m-0 plus_icon"
+                        />
+                      </p>
+
+                      <b-col md="12">
+                        <b-row
+                          v-for="(item, index) in this.projectData.equipments"
+                          :key="index"
+                        >
+                          <b-col md="4">
+                            <b-form-group class="text-right" label="اسم المعدة">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="اسم المعدة"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.equipments[index].equipment_name
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="اسم المعدة"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="4">
+                            <b-form-group
+                              class="text-right"
+                              label="الكمية المخططة للمعدات "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" الكمية المخططة للمعدات"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.equipments[index]
+                                      .planned_quantity_for_equipment
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" الكمية المخططة للمعدات"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+
+
+       <b-col md="4">
+                            <b-form-group
+                              class="text-right"
+                              label="وحدة العمل"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="وحدة العمل"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.equipments[index]
+                                      .unit
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="وحدة العمل"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                          <br />
+                          <br />
+                          <br />
+                          <h1 class="text-white">hhhh</h1>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+
+
+
+
+
+
+
+      <p class="pr-1">
+                        العمالة
+                        <feather-icon
+                          @click="cloneEmploymentCategory"
+                          size="16"
+                          icon="PlusIcon"
+                          class="m-0 plus_icon"
+                        />
+                      </p>
+
+                      <b-col md="12">
+                        <b-row
+                          v-for="(item, index) in this.projectData.employment_category"
+                          :key="index"
+                        >
+                          <b-col md="4">
+                            <b-form-group class="text-right" label="نوع العمالة ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="نوع العمالة "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.employment_category[index].labor_type
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="نوع العمالة "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                     
+
+         <b-col md="4">
+                            <b-form-group class="text-right" label=" الانتاجية في اليوم  ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" الانتاجية في اليوم  "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.employment_category[index].productivity_per_day
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" الانتاجية في اليوم  "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+         <b-col md="4">
+                            <b-form-group class="text-right" label=" وحدة العمل ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" وحدة العمل "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.employment_category[index].unit
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" وحدة العمل "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                      
+                    
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+
+
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                      <!-- End Submit Button  -->
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- //// نسبة الانجاز   -->
+
+      <b-tab>
+        <template #title>
+          <span> نسبة الانجاز </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          موقف الأعمال
+                          <feather-icon
+                            @click="cloneWorkSituation"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .work_situation"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              label="بيان الأعمال"
+                              class="text-right"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="بيان الأعمال"
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="work_statements"
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .work_statement
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="اسم النشاط">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="اسم النشاط"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .activity_name
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="اسم النشاط"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label=" مخطط الفترة الحالية "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" مخطط الفترة الحالية "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .planned_this_period
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="مخطط الفترة الحالية  "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="نسبة الانجاز "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="نسبة الانجاز "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .progress_percentage
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="نسبة الانجاز "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="الوزن">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الوزن"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_situation[index].weight
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="الوزن"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="تاريخ الانتهاء المخطط "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" تاريخ الانتهاء المخطط"
+                                rules="required"
+                              >
+                                <b-form-datepicker
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .planned_end_date
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  label-no-date-selected=" تاريخ الانتهاء المخطط"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="تاريخ الانتهاء المتوقع"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="تاريخ الانتهاء المتوقع"
+                                rules="required"
+                              >
+                                <b-form-datepicker
+                                  v-model="
+                                    projectData.work_situation[index]
+                                      .expected_end_date
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  label-no-date-selected="تاريخ الانتهاء المتوقع"
+                                />
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="الكمية">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الكمية"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_situation[index].quantity
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="الكمية"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                          <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                        <b-col cols="12 text-right pt-2">
+                          <b-button
+                            variant="primary"
+                            type="submit"
+                            @click.prevent="submitAddProjectForm"
+                          >
+                            حفظ
+                          </b-button>
+                        </b-col>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- ////  موقف تقدم الاعمال بالكمية   -->
+
+      <b-tab>
+        <template #title>
+          <span> موقف تقدم الاعمال بالكمية </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          كمية العمل الفعلية والمخططة خلال الشهر
+                          <feather-icon
+                            @click="cloneWorkProgress"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData.work_progress"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.work_progress[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              label="بيان الأعمال"
+                              class="text-right"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="بيان الأعمال"
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="work_statements"
+                                  v-model="
+                                    projectData.work_progress[index]
+                                      .work_statement
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="اسم النشاط">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="اسم النشاط"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_progress[index]
+                                      .activity_name
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="اسم النشاط"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label=" الكمية المخططة "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" الكمية المخططة "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_progress[index]
+                                      .planned_amount
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" الكمية المخططة "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label=" الكمية الفعلية "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" الكمية الفعلية "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.work_progress[index]
+                                      .actual_amount
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" الكمية الفعلية "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="الشهر">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الشهر"
+                                rules="required"
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="monthes"
+                                  v-model="
+                                    projectData.work_progress[index].month
+                                  "
+                                  :reduce="(val) => val.title"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.title }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      title,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        title || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                        <b-col cols="12 text-right pt-2">
+                          <b-button
+                            variant="primary"
+                            type="submit"
+                            @click.prevent="submitAddProjectForm"
+                          >
+                            حفظ
+                          </b-button>
+                        </b-col>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- ////  مؤشرات القيمة المكتسبة  -->
+
+      <b-tab>
+        <template #title>
+          <span> مؤشرات القيمة المكتسبة </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          مؤشرات القيمة المكتسبة
+                          <feather-icon
+                            @click="cloneEarnedValue"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .earned_values"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.earned_values[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label=" القيمة المكتسبة"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" القيمة المكتسبة"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.earned_values[index]
+                                      .earned_value
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" القيمة المكتسبة"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="القيمة المخططة"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="القيمة المخططة"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.earned_values[index]
+                                      .planned_value
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="القيمة المخططة"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="  القيمة الفعلية "
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="  القيمة الفعلية "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.earned_values[index]
+                                      .actual_value
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="  القيمة الفعلية "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- ////    طلبات الفحص (Array)  -->
+
+      <b-tab>
+        <template #title>
+          <span> طلبات الفحص </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          طلبات الفحص
+                          <feather-icon
+                            @click="cloneCheckRequests"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .check_requests"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.check_requests[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="  الموافق عليه"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="  الموافق عليه"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.check_requests[index].approval
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="  الموافق عليه"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label=" المرفوض">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" المرفوض"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.check_requests[index].rejection
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" المرفوض"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="   المعلق ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="   المعلق "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.check_requests[index].pending
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="   المعلق "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- ////     الرسومات التشغيلية (Array)  -->
+
+      <b-tab>
+        <template #title>
+          <span> الرسومات التشغيلية </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          الرسومات التشغيلية
+                          <feather-icon
+                            @click="cloneOperationalGraphics"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .operational_graphics"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.operational_graphics[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="   التخصص">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="   التخصص"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.operational_graphics[index]
+                                      .specialization
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="   التخصص"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="  الموافق عليه"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="  الموافق عليه"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.operational_graphics[index]
+                                      .approval
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="  الموافق عليه"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label=" المرفوض">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" المرفوض"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.operational_graphics[index]
+                                      .rejection
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder=" المرفوض"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="   المعلق ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="   المعلق "
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.operational_graphics[index]
+                                      .pending
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="   المعلق "
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-- ////     الانتاجية للمعدات  -->
+
+      <b-tab>
+        <template #title>
+          <span> الانتاجية للمعدات </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          الانتاجية للمعدات
+                          <feather-icon
+                            @click="cloneEquipmentProductivity"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .equipment_productivity"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.equipment_productivity[index]
+                                      .contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6" class="">
+                            <b-form-group label=" المعدات" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="المعدات "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="equipments"
+                                  v-model="
+                                    projectData.equipment_productivity[index]
+                                      .equipment_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="   متوسط فعلي"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="   متوسط فعلي"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.equipment_productivity[index]
+                                      .avg_actual
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="   متوسط فعلي"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="التاريخ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" التاريخ"
+                                rules="required"
+                              >
+                                <b-form-datepicker
+                                  v-model="
+                                    projectData.equipment_productivity[index]
+                                      .date
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  label-no-date-selected="التاريخ"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-------el 3amalaaa ----->
+
+      <b-tab>
+        <template #title>
+          <span> العمالة</span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          العمالة
+                          <feather-icon
+                            @click="cloneEmployment"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData.employments"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.employments[index].contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group
+                              class="text-right"
+                              label="اعداد العمالة اليومية"
+                            >
+                              <validation-provider
+                                #default="{ errors }"
+                                name="اعداد العمالة اليومية"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="
+                                    projectData.employments[index]
+                                      .daily_manpower
+                                  "
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="اعداد العمالة اليومية"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="التاريخ">
+                              <validation-provider
+                                #default="{ errors }"
+                                name=" التاريخ"
+                                rules="required"
+                              >
+                                <b-form-datepicker
+                                  v-model="projectData.employments[index].date"
+                                  :state="errors.length > 0 ? false : null"
+                                  label-no-date-selected="التاريخ"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-------توريدات الخامات الهامة / طويلة الامد  ----->
+
+      <b-tab>
+        <template #title>
+          <span> توريدات الخامات الهامة / طويلة الامد </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          توريدات الخامات الهامة / طويلة الامد
+                          <feather-icon
+                            @click="cloneExports"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData.exports"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.exports[index].contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6" class="">
+                            <b-form-group label=" الخامات" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الخامات "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="materials"
+                                  v-model="
+                                    projectData.exports[index].material_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="الفعلى">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الفعلى"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.exports[index].actual"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="الفعلى"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="المخطط">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="المخطط"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.exports[index].planned"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="المخطط"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-------problems ----->
+
+      <b-tab>
+        <template #title>
+          <span> المعوقات وأهم المشكلات </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          المعوقات وأهم المشكلات
+                          <feather-icon
+                            @click="cloneProblems"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData.problems"
+                          :key="index"
+                        >
+                          <b-col md="6" class="">
+                            <b-form-group label=" العقد" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="العقد "
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contracts"
+                                  v-model="
+                                    projectData.problems[index].contract_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="المشاكل">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="المشاكل"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.problems[index].problem"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="المشاكل"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-------التدفقات النقدية ----->
+
+      <b-tab>
+        <template #title>
+          <span> التدفقات النقدية </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <p class="text-right">
+                          التدفقات النقدية
+                          <feather-icon
+                            @click="cloneCashFlow"
+                            size="16"
+                            icon="PlusIcon"
+                            class="m-0 plus_icon"
+                          />
+                        </p>
+                        <b-row
+                          v-for="(item, index) in this.projectData.cash_flow"
+                          :key="index"
+                        >
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="المخطط">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="المخطط"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.cash_flow[index].planned"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="المخطط"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+
+       <b-col md="6">
+                            <b-form-group class="text-right" label="الشهر للمخطط">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الشهر للمخطط"
+                                rules="required"
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="monthes"
+                                  v-model="
+                                 projectData.cash_flow[index].planned_month
+                                  "
+                                  :reduce="(val) => val.title"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.title }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      title,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        title || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                          <b-col md="6">
+                            <b-form-group class="text-right" label="الفعلي">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الفعلي"
+                                rules="required"
+                              >
+                                <b-form-input
+                                  v-model="projectData.cash_flow[index].actual"
+                                  :state="errors.length > 0 ? false : null"
+                                  placeholder="الفعلي"
+                                />
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                  
+
+
+
+                           <b-col md="6">
+                            <b-form-group class="text-right" label="الشهر للفعلى">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="الشهر للفعلى"
+                                rules="required"
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="monthes"
+                                  v-model="
+                                 projectData.cash_flow[index].actual_month
+                                  "
+                                  :reduce="(val) => val.title"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.title }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      title,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        title || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+
+                                <small class="text-danger" v-if="errors[0]"
+                                  >هذا الحقل مطلوب</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <b-tab>
+        <template #title>
+          <span> صور المشروع </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <h3 class="text-center pb-2">صور المشروع</h3>
+                      </b-col>
+                      <p class="mr-1">
+                        المقاول
+                        <feather-icon
+                          @click="cloneimagesContractors"
+                          size="16"
+                          icon="PlusIcon"
+                          class="m-0 plus_icon"
+                        />
+                      </p>
+
+                      <b-col md="12">
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .images_contractors"
+                          :key="index"
+                        >
+                          <b-col md="6">
+                            <b-form-group label="المقاول" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="contractors"
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="contractors"
+                                  v-model="
+                                    projectData.images_contractors[index]
+                                      .contractor_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="4">
+                            <div class="choose_images text-center">
+                              <label class="text-center">لوجو المقاول</label>
+                              <div class="choosing_photos_ text-center">
+                                <input
+                                  type="file"
+                                  name="image"
+                                  accept="image/apng, image/jpeg, image/png, image/webp"
+                                  @input="previewFilesContractors(index)"
+                                  ref="myFilesContractors"
+                                  multiple
+                                />
+                              </div>
+                            </div>
+                          </b-col> 
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                          </b-row
+                      ></b-col>
+
+                      <b-col md="12">
+                        <b-row>
+                          <b-col>
+                            <p class="text-right">
+                              القطاع
+                              <feather-icon
+                                @click="cloneimagesDivisions"
+                                size="16"
+                                icon="PlusIcon"
+                                class="m-0 plus_icon"
+                              />
+                            </p>
+                          </b-col>
+                        </b-row>
+                        <b-row
+                          v-for="(item, index) in this.projectData
+                            .images_divisions"
+                          :key="index"
+                        >
+                          <b-col md="6">
+                            <b-form-group label="القطاع" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="divisions"
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="divisions"
+                                  v-model="
+                                    projectData.images_divisions[index]
+                                      .division_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="4">
+                            <div class="text-center choosing_photos_">
+                              <label class="text-center">صور القطاع</label>
+                              <input
+                                type="file"
+                                name="img2"
+                                @input="previewFilesDivisions(index)"
+                                ref="myFilesDivisions"
+                                multiple
+                              />
+                            </div>
+                          </b-col>
+                            <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+
+                      <b-col md="12">
+                        <b-row>
+                          <b-col>
+                            <p class="text-right">
+                              المالك
+                              <feather-icon
+                                @click="cloneimagesOwners"
+                                size="16"
+                                icon="PlusIcon"
+                                class="m-0 plus_icon"
+                              />
+                            </p>
+                          </b-col>
+                        </b-row>
+                        <b-row
+                          v-for="(item, index) in this.projectData.images_owners"
+                          :key="index"
+                        >
+                          <b-col md="6">
+                            <b-form-group label="المالك" class="text-right">
+                              <validation-provider
+                                #default="{ errors }"
+                                name="ownrs"
+                                rules=""
+                              >
+                                <v-select
+                                  :dir="
+                                    $store.state.appConfig.layout.isRTL
+                                      ? 'rtl'
+                                      : 'ltr'
+                                  "
+                                  :options="owners"
+                                  v-model="
+                                    projectData.images_owners[index].owner_name
+                                  "
+                                  :reduce="(val) => val.name"
+                                >
+                                  <template v-slot:option="option">
+                                    {{ option.name }}
+                                  </template>
+                                  <template
+                                    #selected-option="{
+                                      name,
+                                      name_local,
+                                      label,
+                                    }"
+                                  >
+                                    <div
+                                      style="
+                                        display: flex;
+                                        align-items: baseline;
+                                      "
+                                    >
+                                      <strong v-if="$i18n.locale == 'ar'">{{
+                                        name_local || label
+                                      }}</strong>
+                                      <strong v-else>{{
+                                        name || label
+                                      }}</strong>
+                                    </div>
+                                  </template>
+                                  <template #no-options>
+                                    {{ $t("noMatching") }}
+                                  </template>
+                                </v-select>
+                                <small
+                                  v-if="errors.length"
+                                  class="text-danger"
+                                  >{{ validation(null, 0).message }}</small
+                                >
+                              </validation-provider>
+                            </b-form-group>
+                          </b-col>
+
+                          <b-col md="4">
+                            <div class="choose_images text-center">
+                              <label class="text-center">لوجو المالك</label>
+
+                                  <input
+                                  type="file"
+                                  name="img72"
+                                  @input="previewFilesOwners"
+                                  ref="myFiles"
+                                  multiple
+                                />
+                            </div>
+                          </b-col>
+                          <b-col md="12">
+                            <hr/>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+
+                      <!-- End Submit Button  -->
+                    </b-row>
+
+                    <b-row>
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+      <!-------صور المشروع----->
+
+      <b-tab>
+        <template #title>
+          <span> البرنامج الزمنى </span>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <h3 class="text-center pb-2">البرنامج الزمنى</h3>
+                      </b-col>
+
+                      <b-col md="12">
+                        <b-row>
+                          <b-col md="12 pt-3">
+                            <div class="mony_wrapper choose_images pt-2">
+                              <div class="choosing_photos_">
+                                <label class="ml-2"
+                                  >اختر الصور</label
+                                >
+
+
+                                <input
+                                  type="file"
+                                  name="img92"
+                                  @input="previewFilesPeriodic"
+                                  ref="myFilesPeriodic"
+                                  multiple
+                                />
+                           
+                              </div>
+                            </div>
+                          </b-col>
+                          <br />
+                          <br />
+                          <br />
+                          <h1 class="text-white">hhhh</h1>
+                        </b-row>
+                      </b-col>
+
+                      <b-col cols="12 text-right pt-2">
+                        <b-button
+                          variant="primary"
+                          type="submit"
+                          @click.prevent="submitAddProjectForm"
+                        >
+                          حفظ
+                        </b-button>
+                      </b-col>
+                      <!-- End Submit Button  -->
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
+      </b-tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <b-row>
+          <b-col cols="12">
+            <b-overlay
+              variant="white"
+              :show="load"
+              spinner-variant="primary"
+              blur="0"
+              opacity=".75"
+              rounded="sm"
+            >
+              <div class="add_project_details_wrapper">
+                <validation-observer ref="addProjectRules">
+                  <b-form>
+                    <b-row class="bg-white pt-2 pb-2">
+                      <b-col md="12">
+                        <h3 class="text-center pb-2">القطاعات</h3>
+
+                        <b-col class="d-flex justify-content-center" md="12">
+                        </b-col>
+
+                        <div class="d-flex justify-content-right">
+                          <b-button @click="edit(null)">اضافة قطاع</b-button>
+                        </div>
+
+                        <br />
+                        <div>
+                          <b-modal
+                            ref="my-modall"
+                            id="ddd"
+                            v-model="levelModal2"
+                            hide-footer
+                            title="divisions"
+                          >
+                            <div class="demo-vertical-spacing">
+                              <b-form-group class="text-right">
+                                <validation-provider
+                                  #default="{ errors }"
+                                  rules="required"
+                                >
+                                  <b-form-input
+                                    v-model="division.name"
+                                    :state="errors.length > 0 ? false : null"
+                                    placeholder="القطاع"
+                                  />
+                                  <small class="text-danger" v-if="errors[0]"
+                                    >هذا الحقل مطلوب</small
+                                  >
+                                </validation-provider>
+                              </b-form-group>
+                            </div>
+                            <div class="mt-2">
+                              <b-col cols="12" md="12">
+                                <div class="d-flex justify-content-end">
+                                  <b-button
+                                    type="submit"
+                                    variant="primary"
+                                    class="mr-1"
+                                    @click="submitDivision()"
+                                  >
+                                    تأكيد
+                                  </b-button>
+                                  <b-button
+                                    type="reset"
+                                    variant="outline-primary"
+                                    @click="levelModal2 = false"
+                                  >
+                                    الغاء
+                                  </b-button>
+                                </div>
+                              </b-col>
+                            </div>
+                          </b-modal>
+
+                          <!-- @click="edit(data.item)" -->
+                          <b-table
+                            striped
+                            hover
+                            :items="division_list"
+                            :fields="[
+                              { key: 'name', label: 'اسم القطاع' },
+                              { key: 'action' },
+                            ]"
+                            dir="rtl"
+                          >
+                            <template #cell(action)="data">
+                              <feather-icon
+                                @click="edit_division(data.item)"
+                                size="16"
+                                icon="EditIcon"
+                                class="m-0 plus_icon"
+                              />
+                            </template>
+                          </b-table>
+                        </div>
+                      </b-col>
+
+                      <b-col cols="12 text-right pt-2"> </b-col>
+                    </b-row>
+                  </b-form>
+                </validation-observer>
+              </div>
+            </b-overlay>
+          </b-col>
+        </b-row>
