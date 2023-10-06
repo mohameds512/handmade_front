@@ -80,6 +80,31 @@ export default [{
         ]
     },
     {
+        title: 'Global.Categories',
+        icon: 'LayersIcon',
+        permission: 'public',
+        children:[
+            {
+                title: 'crm.Categories',
+                icon: 'GridIcon',
+                permission: 'public',
+                route: 'categories',
+            },
+            {
+                title: 'crm.actions',
+                icon: 'SendIcon',
+                permission: 'public',
+                route: 'actions',
+            },
+            {
+                title: 'crm.companies',
+                icon: 'SendIcon',
+                permission: 'public',
+                route: 'companies',
+            },
+        ]
+    },
+    {
         title: 'inv.inventory',
         icon: 'ArchiveIcon',
         permission: 'public',
@@ -99,7 +124,7 @@ export default [{
             },
             {
                 title: 'inv.archived',
-                icon: 'SendIcon',
+                icon: 'ArchiveIcon',
                 permission: 'public',
                 route: 'archived',
             },

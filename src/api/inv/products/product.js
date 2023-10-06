@@ -33,6 +33,22 @@ class Product extends Resource {
         })
     }
 
+    addCategory(id,payload) {
+        if (id) {
+            return request({
+                url: `/admin/category/storeCategory/${id}`,
+                method: 'post',
+                data: payload,
+            })
+        }else{
+            return request({
+                url: `/admin/category/storeCategory`,
+                method: 'post',
+                data: payload,
+            })
+        }
+        
+    }
     addProduct(id,payload) {
         if (id) {
             return request({

@@ -19,6 +19,7 @@ import hr from "./routes/hr";
 import accounting from "./routes/accounting";
 import crm from "./routes/crm";
 import inventory from "./routes/inventory";
+import category from "./routes/category";
 import purchases from "./routes/purchases";
 
 
@@ -39,6 +40,7 @@ const router = new VueRouter({
     ...hr,
     ...accounting,
     ...inventory,
+    ...category,
     ...crm,
     ...purchases,
     ...ecb_forms,

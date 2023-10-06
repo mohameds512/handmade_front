@@ -98,6 +98,18 @@ getOrderedItems({commit}, id) {
           });
   });
 },
+  addCategory({ commit },payload) {
+    return new Promise((resolve, reject) => {
+      products.addCategory(payload.id, payload.query)
+        .then((response) => {
+          
+          resolve();
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
   addProduct({ commit },payload) {
     return new Promise((resolve, reject) => {
       products.addProduct(payload.id, payload.query)
