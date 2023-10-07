@@ -86,10 +86,10 @@ const userModule = {
       });
     },
     login({ commit, dispatch }, userInfo) {
-      const { email, password } = userInfo;
+      const { email, password ,FCMuserToken} = userInfo;
       commit('app/UPDATE_LOAD', true, { root: true });
       return new Promise((resolve, reject) => {
-        login({ email: email.trim(), password: password })
+        login({ email: email.trim(), password: password ,FCMuserToken:FCMuserToken})
           .then(response => {
             setLogged('1');
             setToken(response.data.token);
@@ -103,9 +103,9 @@ const userModule = {
           });
       });
     },
-    logout({ commit }) {
+    logout({ commit },data) {
       return new Promise((resolve, reject) => {
-        logout()
+        logout(data)
           .then(() => {
             setLogged('0');
             removeToken();

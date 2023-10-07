@@ -231,6 +231,7 @@ export default {
       loginForm: {
         email: "vendor@antika.com",
         password: "AAA@aaa123",
+        FCMuserToken: store.state.app.FCMuserToken,
       },
       sideImg: require("@/assets/images/pages/bg2.jpg"),
       mainImage: require("@/assets/images/logo/gft1.jpeg"),
@@ -256,7 +257,9 @@ export default {
       this.$refs.loginForm
         .validate()
         .then((success) => {
+          console.log('FCMuserToken',this.loginForm);
           if (success) {
+            
             this.$store.dispatch("users/login", this.loginForm).then(() => {
               if (this.authUser().id) {
                 this.$store

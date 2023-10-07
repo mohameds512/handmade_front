@@ -65,7 +65,8 @@ if (Notification.permission !== 'granted') {
         .then((currentToken) => {
           
           store.commit('app/SET_FCM_USER_TOKEN', currentToken)
-          console.log("token id : ",currentToken);
+          console.log("token id 11 : ",currentToken);
+          console.log("token id 22: ",FCMuserToken);
 
         })
         .catch((err) => {
@@ -79,8 +80,9 @@ if (Notification.permission !== 'granted') {
 }else{
   getToken(messaging, { vapidKey: 'BKIkiUKC4YpGBHof15RhZFuzUlJ1WNZqJ6iKqhUUaOAaz5Kbb4ax0cfADOWzgOxBUH99Qwb493wIbxdofX49Bvk' })
         .then((currentToken) => {
-          console.log("token id : ",currentToken);          
+          
           store.commit('app/SET_FCM_USER_TOKEN', currentToken); 
+          console.log("token id 11 : ",currentToken);
         })
         .catch((err) => {
           console.log('An error occurred while retrieving token. ', err);

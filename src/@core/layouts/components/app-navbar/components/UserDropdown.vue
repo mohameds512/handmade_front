@@ -97,7 +97,8 @@ export default {
   
   methods: {
     logout() {
-      this.$store.dispatch('users/logout').then(_ => {
+      
+      this.$store.dispatch('users/logout',{'FCMuserToken' :this.$store.state.app.FCMuserToken}).then(_ => {
         this.$router.push({ name: 'auth-login' });
       });
     },
