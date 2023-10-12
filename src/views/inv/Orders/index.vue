@@ -7,6 +7,7 @@
                     <b-row>
                         <b-col lg="4" md="4" sm="12" v-for="(product,i) in products" :key="i">
                             <div>
+                                <!-- {{ product }} -->
                                 <b-card no-body border-variant="light">
                                     <b-row no-gutters>
                                     <b-col md="4">
@@ -46,8 +47,14 @@
                                                 size="18"
                                             />
 
-                                            <b-button v-if="product.item_code > 0" class="btn btn-sm btn-flat-success" @click="confirmOrder(product)">
+                                            <b-button v-if="product.item_order_status == 0" class="btn btn-sm btn-flat-success" @click="confirmOrder(product)">
                                                 {{ $t('Confirm') }}
+                                            </b-button>
+                                            <b-button v-if="product.item_order_status == 1" class="btn btn-sm btn-flat-success" @click="confirmOrder(product)">
+                                                {{ $t('ready to shipping') }}
+                                            </b-button>
+                                            <b-button v-if="product.item_order_status == 2" class="btn btn-sm btn-flat-success" @click="confirmOrder(product)">
+                                                {{ $t('order shipped') }}
                                             </b-button>
                                         </div>
                                         
@@ -76,9 +83,15 @@
                                 <b-card-text  >
                                     <p  > {{ transDB(shown_product.desc)  }}</p>
                                     <div class="d-flex justify-content-between"  >
-                                        <div class="m-0" > <p>  <strong>{{$t('price')}} :  </strong> </p> <p> {{ shown_product.price }} $</p></div>
-                                        <div class="m-0"> <p>  <strong>{{$t('discount')}} : </strong></p> <p> {{ shown_product.discount }} %</p></div>
-                                        <div class="m-0"> <p>   <strong>{{$t('count')}} : </strong></p><p> {{ shown_product.item_count }} </p></div>
+                                        <div class="m-0" > <p>  <strong>{{$t('price')}} :  </strong>  {{ shown_product.price }} $</p></div>
+                                        <div class="m-0"> <p>  <strong>{{$t('discount')}} : </strong> {{ shown_product.discount }} %</p></div>
+                                        <div class="m-0"> <p>   <strong>{{$t('count')}} : </strong> {{ shown_product.item_count }} </p></div>
+                                        
+                                    </div>
+                                    <div class="d-flex justify-content-between"  >
+                                        <div class="m-0" > <p>  <strong>{{$t('address phone')}} :  </strong>  {{ shown_product.address_phone }} </p></div>
+                                        <div class="m-0"> <p>  <strong>{{$t('city')}} : </strong> {{ shown_product.address_city }} %</p></div>
+                                        <div class="m-0"> <p>   <strong>{{$t('street')}} : </strong> {{ shown_product.address_street }} </p></div>
                                         
                                     </div>
                                     <hr>
@@ -185,6 +198,9 @@ import { title } from '@/@core/utils/filter';
                 price:null,
             },
             shown_product:{
+                address_street:null,
+                address_city:null,
+                address_phone:null,
                 name_ar:null,
                 name_en:null,
                 name_du:null,
@@ -244,6 +260,9 @@ import { title } from '@/@core/utils/filter';
         },
         show_product(item){
             this.shown_product.id = item.id
+            this.shown_product.address_street = item.address_street
+            this.shown_product.address_city = item.address_city
+            this.shown_product.address_phone = item.address_phone
             this.shown_product.cat_name = item.cat_name
             this.shown_product.name = item.name,
             this.shown_product.name_ar = item.name.ar,
@@ -275,12 +294,15 @@ import { title } from '@/@core/utils/filter';
         check_item_order_status(val){
             
             if (val == 0) {
-                return this.$t('waiting..');
+                return this.$t('waiting Approve..');
             }else if (val == 1) {
-                return this.$t('waiting shipping');
+                return this.$t('approved');
             }else if (val == 2) {
+                return this.$t('waiting shipping');
+            }else if (val == 3) {
                 return this.$t('in the route');
-            }else if (val == 4) {
+            }
+            else if (val == 4) {
                 return this.$t('Received');
             }
             

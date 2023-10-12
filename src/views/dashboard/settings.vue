@@ -99,16 +99,16 @@
                                 :center="{lat:10, lng:10}"
                                 :zoom="7"
                                 map-type-id="terrain"
-                                style="width: 500px; height: 300px"
+                                style="width: 800px; height: 500px"
                                 >
-                                <GmapMarker
-                                    :key="index"
-                                    v-for="(m, index) in markers"
-                                    :position="m.position"
-                                    :clickable="true"
-                                    :draggable="true"
-                                    @click="center=m.position"
-                                />
+                                    <!-- <GmapMarker
+                                        :key="index"
+                                        v-for="(m, index) in markers"
+                                        :position="m.position"
+                                        :clickable="true"
+                                        :draggable="true"
+                                        @click="center=m.position"
+                                    /> -->
                                 </GmapMap>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
     } from 'bootstrap-vue'
     import { ValidationProvider,ValidationObserver } from 'vee-validate';
 import { formatDate } from '@/@core/utils/filter';
-    // import {gmapApi} from 'vue2-google-maps';
+    import {gmapApi} from 'vue2-google-maps';
     export default {
         components:{
             BCardTitle,
@@ -183,6 +183,11 @@ import { formatDate } from '@/@core/utils/filter';
         },
         data(){
             return {
+                markers:[
+                    {
+                        position:{lat: 1.38, lng: 103.80}
+                    }
+                ],
                 setting_img:false,
                 editBasicInfo:false,
                 setting_info:{
