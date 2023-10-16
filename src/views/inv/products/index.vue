@@ -55,25 +55,6 @@
                         </b-col>
                     </b-row>
                     
-                    <!-- <b-table :items="products" 
-                        :fields="[
-                            { key: 'name', label: $t('name') },
-                            { key: 'desc', label: $t('desc') },
-                            { key: 'count', label: $t('count') },
-                            { key: 'price', label: $t('price') },
-                            { key: 'discount', label: $t('discount') },
-                            { key: 'img_route', label: $t('image') },
-                        ]"
-                    >
-                        <template #cell(name) ="data">
-                            
-                            {{ transDB(data.item.name) }}
-                        </template>
-                        <template #cell(desc) ="data">
-                        
-                        {{ transDB(data.item.desc) }}
-                    </template>
-                    </b-table> -->
                 </div>
                 <div>
                     
@@ -153,7 +134,6 @@
                                 </b-row>
                                 <b-row>
                                     <b-col lg="4"   md="4" sm="12">
-                                        
                                         <b-form-group :label="$t('category')">
                                             <v-select :options="categories" v-model="product.cat_id" :reduce="(val)=>val.id">
                                                 <template v-slot:option="option">
@@ -190,6 +170,7 @@
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
+                                
                                 <b-row>
                                     <b-col lg="6" md="6" sm="12">
                                         <b-form-group :label="$t('image')">
@@ -210,6 +191,44 @@
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
+                                <b-row v-for="(data,index) in collected_data" :key="index">
+                                    
+                                    <b-col  lg="5" md="5" sm="12"  >
+                                        <b-form-group :label="$t('name')">
+                                            <validation-provider #default="{ errors }" name="desc_du" >
+                                                <b-form-input v-model="data.name"  :state="errors.length > 0 ? false : null">
+                                                </b-form-input>
+                                                <small class="text-danger" v-if="errors[0]">
+                                                    {{ $t("The name field is required") }}
+                                                </small>
+                                            </validation-provider>
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col lg="5"   md="5" sm="12">
+                                        <b-form-group :label="$t('Type')">
+                                            <v-select :options="data_type" v-model="data.type" :reduce="(val)=>val.id">
+                                                <template v-slot:option="option">
+                                                    {{ option.name }}
+                                                </template>
+                                                <template #selected-option="{name}">
+                                                    <strong>
+                                                        {{ name }}
+                                                    </strong>
+                                                </template>
+                                            </v-select>
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col lg="2"   md="2" sm="12" class="pt-2 pl-2">
+                                        
+                                            <feather-icon
+                                                icon="TrashIcon" @click="remove_collected_data(index)"
+                                                class="text-danger mt-1 icon" size="22" 
+                                            />
+                                    </b-col>
+                                </b-row>
+                                <div class="text-success" style="text-align: right;">
+                                    <p class="icon" @click="add_collected_data()">+ add </p>
+                                </div>
                                 <div class="mt-2">
                                     <b-col cols="12">
                                         <div class="justify-content-end">
@@ -372,6 +391,17 @@ import { title } from '@/@core/utils/filter';
                 count:null,
                 price:null,
             },
+            collected_data:[
+                // {
+                //     name:null,
+                //     type:null,//number,text,date
+                // }
+            ],
+            data_type:[
+                {id:1,name :this.$t('text')},
+                {id:2,name :this.$t('number')},
+                {id:3,name :this.$t('date')},
+            ],
             shown_product:{
                 name_ar:null,
                 name_en:null,
@@ -397,6 +427,13 @@ import { title } from '@/@core/utils/filter';
       },
       
       methods: {
+        add_collected_data(){
+            this.collected_data.push({name:null,type:null});
+        },
+        remove_collected_data(index){
+            // this.collected_data.splice(index,1);
+            this.$delete(this.collected_data,index);
+        },
         // firebaseNotification(){
         //     const messaging = getMessaging();
         //     onMessage(messaging, (payload) => {          
