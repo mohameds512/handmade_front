@@ -74,7 +74,7 @@ const locationModule = {
             bbx_forms
             .notifications()
             .then(response => {
-              commit('SET_NOTIFICATIONS',response.data)
+              commit('SET_NOTIFICATIONS',response)
               // console.log(response)
               resolve(response)
             })
@@ -89,7 +89,6 @@ const locationModule = {
             bbx_forms
             .markNotAsReaded()
             .then(response => {
-              commit('SET_NOTIFICATIONS',response.data)
               // console.log(response)
               resolve(response)
             })

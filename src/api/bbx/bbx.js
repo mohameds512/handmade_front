@@ -41,7 +41,7 @@ notifications(payload) {
 }
 markNotAsReaded(payload) {
     return request({
-        url: `/notifications/read`,
+        url: `admin/notification/seenNotif`,
         method: "post",
         data: payload
     });

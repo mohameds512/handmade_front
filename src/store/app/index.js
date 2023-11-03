@@ -6,6 +6,7 @@ export default {
 namespaced: true,
 state: {
     FCMuserToken:null,
+    FCMnewMessage:null,
     windowWidth: 0,
     shallShowOverlay: false,
     load: false,
@@ -20,6 +21,9 @@ state: {
 getters: {
     FCMuserToken:state => {
         return state.FCMuserToken
+    },
+    FCMnewMessage:state => {
+        return state.FCMnewMessage
     },
     lookups: state => {
         return state.lookups
@@ -54,6 +58,9 @@ getters: {
 mutations: {
     SET_FCM_USER_TOKEN(state,val){
         state.FCMuserToken = val
+    },
+    SET_FCM_NEW_Message(state,message){
+        state.FCMnewMessage = message
     },
     UPDATE_PAGE_DETAILS(state, val) {
         state.pageDetails = val

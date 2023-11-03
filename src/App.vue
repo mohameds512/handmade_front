@@ -65,8 +65,7 @@ if (Notification.permission !== 'granted') {
         .then((currentToken) => {
           
           store.commit('app/SET_FCM_USER_TOKEN', currentToken)
-          console.log("token id 11 : ",currentToken);
-          console.log("token id 22: ",FCMuserToken);
+          
 
         })
         .catch((err) => {

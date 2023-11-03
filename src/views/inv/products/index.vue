@@ -428,7 +428,7 @@ import { title } from '@/@core/utils/filter';
       
       methods: {
         add_collected_data(){
-            this.collected_data.push({name:null,type:null});
+            this.collected_data.push({name:null,type:null,value:null});
         },
         remove_collected_data(index){
             // this.collected_data.splice(index,1);
@@ -544,14 +544,18 @@ import { title } from '@/@core/utils/filter';
                     product_data.append('discount',this.product.discount)
                     product_data.append('count',this.product.count)
                     product_data.append('cat_id',this.product.cat_id)
+                    if(this.collected_data.length > 0){
+                        let collected_data_json = JSON.stringify(this.collected_data);
+                        product_data.append('info',collected_data_json)
+                    }
 
                     this.$store.dispatch("products/addProduct",{
                         id:this.product.id,
-                        query:product_data
+                        query:product_data  
                     }
                     ).then(() => {
-                    this.productModal = false
-                    // this.$toast.success('Hello World!')
+                    this.productModal = false,
+                    this.collected_data = [],   
                     this.$swal({
                         icon:'success',
                         title:"successMessage",

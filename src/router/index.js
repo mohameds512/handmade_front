@@ -16,6 +16,7 @@ import pages from "./routes/pages";
 import administration from "./routes/administration";
 import ecb_forms from "./routes/ecb-forms";
 import hr from "./routes/hr";
+import chat from "./routes/chats";
 import accounting from "./routes/accounting";
 import crm from "./routes/crm";
 import inventory from "./routes/inventory";
@@ -38,6 +39,7 @@ const router = new VueRouter({
     ...pages,
     ...administration,
     ...hr,
+    ...chat,
     ...accounting,
     ...inventory,
     ...category,

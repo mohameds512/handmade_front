@@ -1,31 +1,47 @@
 <template>
   <div right class="d-flex align-items-center dropdown-user-link dropdown-user notifications_drop">
-    <!-- <template #button-content> -->
-
-    <!-- <feather-icon  icon="BellIcon" size="22" /> -->
-    <!-- {{ allNotfications }} -->
-    <div class="notification_counter" v-if="notifCounter() != 0">
-      {{notifCounter()}}
+    
+    
+    <div class="notification_counter" v-if="unSeenCount  != 0">
+      {{$store.state.bbx_forms.Notifications.count}} 
     </div>
-    <!-- {{ Notifications() }} -->
+    <div>
+      
+    </div>
     <b-dropdown  id="notifications-dropdown" menu-class="fixed-width" class="main-drop" text="Notifications Right align Dropdown with fixed width"  right  variant='none' no-caret  @shown="handleDropdownClick">
       <template #button-content>
         <feather-icon  icon="BellIcon" size="22" />
       </template>
-      <b-dropdown-item  class="custom-item" v-for="notification in allNotfications" :key="notification.id">
-        {{ notification.data.message }}
-      </b-dropdown-item>
+      <div style="width: 250px; max-height: 350px; padding: 5px; overflow-x: auto;">
+        <div style=" border-bottom: solid 1px gray;" v-for="notification in $store.state.bbx_forms.Notifications.notifications" :key="notification.id">
+          <div class="d-flex justify-content-between">
+            <p>
+            {{ notification.title }}
+
+          </p>
+          <p>
+            {{ notification.added_ago }}
+          </p>
+          </div>
+          <p>
+            {{ notification.body }}
+
+          </p>
+        </div>
+      </div>
       
     </b-dropdown>
+    <div>
+      <b-link :to="{name :'chat'}">
+        <feather-icon size="22" icon="MessageCircleIcon" class="m-0" />
+      </b-link>
+    </div>
     <div class="d-sm-flex d-none user-nav mx-1">
       
       <b-link :to="{ name: 'user-show' }" class="user-name font-weight-bolder mb-0">
-        {{ authUser().first_name || 'Admin System' }}
+        {{ authUser().name || 'Admin System' }}
       </b-link>
-<!--      <b-link :to="{ name: 'user-show', params: { id: authUser().id } }" class="user-name font-weight-bolder mb-0">-->
-<!--        {{ authUser().first_name || 'Admin System' }}-->
-<!--      </b-link>-->
-      <!-- <span class="user-status">admin</span> -->
+
     </div>
     <b-avatar size="40" :src="user_photo(authUser().id)" variant="light-primary" badge class="badge-minimal" badge-variant="success">
       <feather-icon v-if="!authUser().first_name" icon="UserIcon" size="22" />
@@ -34,49 +50,13 @@
     <div v-b-tooltip.hover title="Log Out" class="mx-1 pointer logout_icon" @click="logout">
       <feather-icon size="16" icon="LogOutIcon" class="m-0" />
     </div>
-    <!-- <span>Logout</span> -->
-    <!-- </template> -->
-
-    <!-- <b-dropdown-item :to="{ name: 'user-show', params: { id: authUser().id } }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="UserIcon" class="mr-50" />
-      <span>Profile</span>
-    </b-dropdown-item> -->
-    <!-- <b-dropdown-item :to="{ name: 'apps-email' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="MailIcon" class="mr-50" />
-      <span>Inbox</span>
-    </b-dropdown-item>
-    <b-dropdown-item :to="{ name: 'apps-todo' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="CheckSquareIcon" class="mr-50" />
-      <span>Task</span>
-    </b-dropdown-item>
-    <b-dropdown-item :to="{ name: 'apps-chat' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="MessageSquareIcon" class="mr-50" />
-      <span>Chat</span>
-    </b-dropdown-item>
-
-    <b-dropdown-divider />
-
-    <b-dropdown-item :to="{ name: 'pages-account-setting' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="SettingsIcon" class="mr-50" />
-      <span>Settings</span>
-    </b-dropdown-item>
-    <b-dropdown-item :to="{ name: 'pages-pricing' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="CreditCardIcon" class="mr-50" />
-      <span>Pricing</span>
-    </b-dropdown-item>
-    <b-dropdown-item :to="{ name: 'pages-faq' }" link-class="d-flex align-items-center">
-      <feather-icon size="16" icon="HelpCircleIcon" class="mr-50" />
-      <span>FAQ</span>
-    </b-dropdown-item> -->
-    <!-- <b-dropdown-item link-class="d-flex align-items-center" @click="logout">
-      <feather-icon size="16" icon="LogOutIcon" class="mr-50" />
-      <span>Logout</span>
-    </b-dropdown-item> -->
+    
   </div>
 </template>
 
 <script>
 import { BNavItemDropdown, BLink, BDropdownItem, BDropdownDivider, BAvatar,BDropdown , BDropdownitem } from 'bootstrap-vue';
+
 
 export default {
   components: {
@@ -92,10 +72,12 @@ export default {
     return {
       userData: this.authUser(),
       allNotfications:[],
+      unSeenCount : 0,
     };
   },
   
   methods: {
+    
     logout() {
       
       this.$store.dispatch('users/logout',{'FCMuserToken' :this.$store.state.app.FCMuserToken}).then(_ => {
@@ -103,22 +85,20 @@ export default {
       });
     },
     Notifications(){
-      // this.$store.getters['bbx_forms/get_notifications']
       this.$store.dispatch('bbx_forms/notifications')
               .then((res) => {
-                // console.log(res);
-                this.allNotfications=res.data                
+                this.allNotfications=res.notifications     
+                this.unSeenCount=res.count     
               })
               .catch((error)=>{
                 console.log(error)
               })
     },
     NotificationsMarkReaded(){
-      // this.$store.getters['bbx_forms/get_notifications']
       this.$store.dispatch('bbx_forms/markNotAsReaded')
               .then((res) => {
-                // console.log(res);
-                this.allNotfications=res.data                
+                
+                this.unSeenCount=res.count            
               })
               .catch((error)=>{
                 console.log(error)

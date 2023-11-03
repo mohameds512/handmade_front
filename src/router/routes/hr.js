@@ -31,7 +31,7 @@ export default [
       ],
     },
   },
-  {
+  { 
     path: "/users/:id",  
     name: "user-show",
     permission: "access_users",

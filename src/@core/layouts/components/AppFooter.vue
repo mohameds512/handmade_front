@@ -21,7 +21,7 @@
 <script>
 import { BLink } from "bootstrap-vue";
 import { getMessaging,onMessage} from "firebase/messaging";
-
+import store from "@/store";
 
 export default {
   components: {
@@ -31,16 +31,28 @@ export default {
     this.firebaseNotification()
   },
   methods:{
+    Notifications(){
+      this.$store.dispatch('bbx_forms/notifications')
+              .then((res) => {
+              })
+              .catch((error)=>{
+                console.log(error)
+              })
+    },
     firebaseNotification(){
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {          
-        const notificationTitle = payload.notification.title;
+          const notificationTitle = payload.notification.title;
             const notificationOptions = {
             body: payload.notification.body,
             icon: '/logo_one.png'
             };
             this.$toast.success(payload.notification.body);
-        
+            console.log('test2');
+            if(payload.notification.title == 'Order'){
+              console.log('test2');
+              this.Notifications();
+            }
         });
     }
   }
