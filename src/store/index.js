@@ -12,6 +12,9 @@ import employeesModule from "./modules/hr/employees/employee";
 
 import addProjectModule from "./modules/ecb_forms/add_project";
 
+// Chat
+import chatsModule from "./modules/chat/chat";
+
 //accounting
 import accountsModule from "./modules/accounting/accounts/account";
 import entriesModule from "./modules/accounting/entries/entry";
@@ -76,6 +79,8 @@ export default new Vuex.Store({
     items: itemsModule,
     products: productsModule,
     warehouses: warehousesModule,
+
+    chats:chatsModule,
 
     bills: billsModule,
     payments: paymentsModule,

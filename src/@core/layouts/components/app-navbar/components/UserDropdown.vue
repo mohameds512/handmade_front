@@ -1,7 +1,6 @@
 <template>
   <div right class="d-flex align-items-center dropdown-user-link dropdown-user notifications_drop">
     
-    
     <div class="notification_counter" v-if="unSeenCount  != 0">
       {{$store.state.bbx_forms.Notifications.count}} 
     </div>

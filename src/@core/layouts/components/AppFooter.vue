@@ -38,18 +38,33 @@ export default {
               .catch((error)=>{
                 console.log(error)
               })
+              console.log('ddddddwwwww');
     },
+    getChat(id){
+        this.$store.dispatch("chats/getChat",{
+          query:{'conver_id':id}
+        })
+          .then((res)=>{
+          }).catch((err)=>{
+            console.log(err);
+          })
+      },
     firebaseNotification(){
         const messaging = getMessaging();
-        onMessage(messaging, (payload) => {          
-          const notificationTitle = payload.notification.title;
-            const notificationOptions = {
-            body: payload.notification.body,
-            icon: '/logo_one.png'
-            };
+        onMessage(messaging, (payload) => {   
+          
+          // const notificationTitle = payload.notification.title;
+          //   const notificationOptions = {
+          //   body: payload.notification.body,
+          //   icon: '/logo_one.png'
+          //   };
             this.$toast.success(payload.notification.body);
             console.log('test2');
-            if(payload.notification.title == 'Order'){
+            console.log('payload.notification.title',payload);
+            if(payload.data.pagename == 'message'){
+              this.getChat(payload.data.pageid);
+            }
+            if(payload.data.pagename == 'Order'){
               console.log('test2');
               this.Notifications();
             }
